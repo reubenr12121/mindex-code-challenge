@@ -104,8 +104,7 @@ public class EmployeeServiceImplTest {
     public void testCountDirectEmployeesZero() {
         int expectedCount = 0;
         Employee employee = new Employee();
-        employee.setEmployeeId("1234");
-        employee = employeeService.read("1234");
+        employee.setDirectReports(null);
         int count = employeeService.countDirectReports(employee);
         assertEquals(expectedCount, count);
     }
