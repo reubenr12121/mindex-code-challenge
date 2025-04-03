@@ -14,6 +14,10 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
+import com.mindex.challenge.service.EmployeeService;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -75,6 +79,35 @@ public class EmployeeServiceImplTest {
                         readEmployee.getEmployeeId()).getBody();
 
         assertEmployeeEquivalence(readEmployee, updatedEmployee);
+    }
+
+    @Test
+    public void testCountDirectEmployees() {
+        // readme example John
+        // expected 4
+        Employee employee = new Employee();
+        employee = employeeService.read("16a596ae-edd3-4847-99fe-c4518e82c86f");
+        /*Employee testEmployee = new Employee();
+        Employee testEmployee2 = new Employee();
+        Employee testEmployee3 = new Employee();
+        Employee testEmployee4 = new Employee();
+        Employee testEmployee5 = new Employee();
+
+        List<Employee> employees = new ArrayList<>();
+        employees.add(testEmployee2);
+        employees.add(testEmployee3);
+        testEmployee.setDirectReports(employees);
+
+        List<Employee> employees2 = new ArrayList<>();
+        employees2.add(testEmployee4);
+        testEmployee2.setDirectReports(employees2);
+
+        List<Employee> employees3 = new ArrayList<>();
+        employees3.add(testEmployee5);
+        testEmployee3.setDirectReports(employees3);
+        EmployeeService employeeService = new EmployeeServiceImpl();*/
+        int count = employeeService.countDirectReports(employee);
+        assertEquals(4, count);
     }
 
     private static void assertEmployeeEquivalence(Employee expected, Employee actual) {

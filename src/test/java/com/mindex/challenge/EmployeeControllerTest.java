@@ -5,7 +5,6 @@ import com.mindex.challenge.data.Employee;
 import com.mindex.challenge.data.ReportingStructure;
 import com.mindex.challenge.service.EmployeeService;
 import org.junit.Test;
-import com.mindex.challenge.dao.EmployeeRepository;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 
@@ -50,7 +49,7 @@ public class EmployeeControllerTest {
         Employee testEmployee = new Employee();
         Employee testEmployee2 = new Employee();
         Employee testEmployee3 = new Employee();
-        List<Employee> employees = new ArrayList<Employee>();
+        List<Employee> employees = new ArrayList<>();
         employees.add(testEmployee2);
         employees.add(testEmployee3);
         testEmployee.setFirstName("John");
@@ -62,7 +61,7 @@ public class EmployeeControllerTest {
 
         // simulate a found employee and return the test employee
         when(mockEmployeeService.read("")).thenReturn(testEmployee);
-
+        when(mockEmployeeService.countDirectReports(testEmployee)).thenReturn(2);
         // grab the response entity
         ResponseEntity<ReportingStructure> response = employeeController.reportingStructure("");
 

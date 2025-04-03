@@ -57,9 +57,12 @@ public class EmployeeController {
 
         try{
             Employee employee = employeeService.read(id);
+            int directEmployeeCount = employeeService.countDirectReports(employee);
+            LOG.debug("employee count: [{}]", directEmployeeCount);
+            //int directEmployeeCount = employee.getDirectReports().size();
             ReportingStructure responseEntity = new ReportingStructure(
             employee.getEmployeeId(),
-            employee.getDirectReports().size());
+            directEmployeeCount);
             // able to make the new ReportingStructure
             return new ResponseEntity<>(responseEntity, HttpStatus.OK);
         } catch(RuntimeException e) {
