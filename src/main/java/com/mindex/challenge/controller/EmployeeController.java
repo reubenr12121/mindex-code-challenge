@@ -3,9 +3,12 @@ package com.mindex.challenge.controller;
 import com.mindex.challenge.data.Employee;
 import com.mindex.challenge.data.ReportingStructure;
 import com.mindex.challenge.service.EmployeeService;
+import org.apache.coyote.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,12 +46,26 @@ public class EmployeeController {
     }
 
     @GetMapping("/employee/{id}/reporting-structure")
-    public ReportingStructure reportingStructure(@PathVariable String id) {
+    public ResponseEntity<ReportingStructure> reportingStructure(@PathVariable String id) {
         // log the request
         LOG.debug("Received employee reporting structure request for id [{}]", id);
         // grab employee using employeeService
-        Employee employee = employeeService.read(id);
-        // create new reporting structure using employee and return
-        return new ReportingStructure(employee.getEmployeeId(), employee.getDirectReports().size());
+        // attempt to create a ReportingStructure
+
+        // decided to implement this controller method with ResponseEntities
+        // instead of just returning the ReportingStructure
+
+        try{
+            Employee employee = employeeService.read(id);
+            ReportingStructure responseEntity = new ReportingStructure(
+            employee.getEmployeeId(),
+            employee.getDirectReports().size());
+            // able to make the new ReportingStructure
+            return new ResponseEntity<>(responseEntity, HttpStatus.OK);
+        } catch(RuntimeException e) {
+            // if employee not found handle
+            LOG.error("Employee not found for id [{}]", id);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 }

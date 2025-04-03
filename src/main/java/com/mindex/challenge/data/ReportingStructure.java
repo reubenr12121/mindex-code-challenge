@@ -22,6 +22,9 @@ public class ReportingStructure {
      * @param numberOfReports: the number of employees reporting
      */
     public ReportingStructure(String employeeID, int numberOfReports) {
+        if (numberOfReports < 0) {
+            throw new IllegalArgumentException("Number of reports cannot be negative");
+        }
         this.employeeID = employeeID;
         this.numberOfReports = numberOfReports;
     }
@@ -61,7 +64,13 @@ public class ReportingStructure {
      * @param numberOfReports: the number of reporting employees
      */
     public void setNumberOfReports(int numberOfReports) {
-        this.numberOfReports = numberOfReports;
+        // check for negative number of reports
+        if(numberOfReports < 0) {
+            throw new IllegalArgumentException("Number of reports cannot be negative");
+        }
+        else {
+            this.numberOfReports = numberOfReports;
+        }
     }
 }
 
