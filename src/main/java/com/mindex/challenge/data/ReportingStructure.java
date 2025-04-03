@@ -22,6 +22,10 @@ public class ReportingStructure {
      * @param numberOfReports: the number of employees reporting
      */
     public ReportingStructure(String employeeID, int numberOfReports) {
+        // originally had input checking for a null employee ID, but that is
+        // redundant as that is checked in EmployeeServiceImpl
+
+        // negative number of reports check
         if (numberOfReports < 0) {
             throw new IllegalArgumentException("Number of reports cannot be negative");
         }
