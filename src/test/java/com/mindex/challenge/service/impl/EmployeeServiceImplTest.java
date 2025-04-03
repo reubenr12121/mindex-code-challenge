@@ -15,6 +15,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -75,6 +76,37 @@ public class EmployeeServiceImplTest {
                         readEmployee.getEmployeeId()).getBody();
 
         assertEmployeeEquivalence(readEmployee, updatedEmployee);
+    }
+
+    /**
+     * Test the countDirectEmployees function with a 2 layer employee structure
+     * This test checks for
+     * - The expected count matching the returned count
+     */
+    @Test
+    public void testCountDirectEmployees() {
+        // readme example John
+        // expected 4
+        int expectedCount = 4;
+        Employee employee = new Employee();
+        employee = employeeService.read("16a596ae-edd3-4847-99fe-c4518e82c86f");
+        int count = employeeService.countDirectReports(employee);
+        assertEquals(expectedCount, count);
+    }
+
+    /**
+     * Test the countDirectEmployees function with no direct reporting
+     * employees
+     * This test checks for
+     * - The returned count equaling 0
+     */
+    @Test
+    public void testCountDirectEmployeesZero() {
+        int expectedCount = 0;
+        Employee employee = new Employee();
+        employee.setDirectReports(null);
+        int count = employeeService.countDirectReports(employee);
+        assertEquals(expectedCount, count);
     }
 
     private static void assertEmployeeEquivalence(Employee expected, Employee actual) {

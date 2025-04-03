@@ -46,4 +46,22 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         return employeeRepository.save(employee);
     }
+
+
+    @Override
+    public int countDirectReports(Employee employee) {
+        LOG.debug("Employee [{}]", employee.getEmployeeId());
+        if (employee.getDirectReports() == null
+            || employee.getDirectReports().isEmpty()
+            || employee.getEmployeeId() == null) {
+            return 0;
+        }
+        int count = employee.getDirectReports().size();
+        for(Employee emp : employee.getDirectReports()) {
+            emp = employeeRepository.findByEmployeeId(emp.getEmployeeId());
+            LOG.debug("Count direct reports before [{}]", count);
+            count += countDirectReports(emp);
+        }
+        return count;
+    }
 }
