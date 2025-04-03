@@ -3,7 +3,6 @@ package com.mindex.challenge.controller;
 import com.mindex.challenge.data.Employee;
 import com.mindex.challenge.data.ReportingStructure;
 import com.mindex.challenge.service.EmployeeService;
-import org.apache.coyote.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,18 +44,23 @@ public class EmployeeController {
         return employeeService.update(employee);
     }
 
+    /**
+     * Generates a ReportingStructure using a provided employee ID
+     * @param id the employee's ID for the desired ReportingStructure
+     * @return a ResponseEntity containing the ReportingStructure if found or
+     * an error code
+     */
     @GetMapping("/employee/{id}/reporting-structure")
     public ResponseEntity<ReportingStructure> reportingStructure(@PathVariable String id) {
         // log the request
         LOG.debug("Received employee reporting structure request for id [{}]", id);
-        // grab employee using employeeService
-        // attempt to create a ReportingStructure
-
         // decided to implement this controller method with ResponseEntities
         // instead of just returning the ReportingStructure
-
         try{
+            // grab employee using employeeService
+            // attempt to create a ReportingStructure
             Employee employee = employeeService.read(id);
+            // count the DirectReports recursively
             int directEmployeeCount = employeeService.countDirectReports(employee);
             LOG.debug("employee count: [{}]", directEmployeeCount);
             //int directEmployeeCount = employee.getDirectReports().size();

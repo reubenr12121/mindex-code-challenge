@@ -51,8 +51,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public int countDirectReports(Employee employee) {
         LOG.debug("Employee [{}]", employee.getEmployeeId());
-        if (employee == null
-            || employee.getDirectReports() == null
+        if (employee.getDirectReports() == null
             || employee.getDirectReports().isEmpty()
             || employee.getEmployeeId() == null) {
             return 0;

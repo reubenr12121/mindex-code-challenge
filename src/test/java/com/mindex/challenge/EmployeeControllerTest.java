@@ -37,7 +37,6 @@ public class EmployeeControllerTest {
 
     /**
      * Test the reportingStructure endpoint when the employee exists
-     *
      * This test checks for
      * - The Http status code equals OK
      * - The number of reports equals the size of the directReport list
@@ -83,7 +82,6 @@ public class EmployeeControllerTest {
 
     /**
      * Test the reportingStructure endpoint when the employee doesn't exist
-     *
      * This test checks for
      * - The Http status code equals NOT_FOUND
      * - The returned reportingStructure object equals null
