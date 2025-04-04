@@ -21,6 +21,10 @@ import java.time.LocalDate;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+/**
+ * Test class for CompensationServiceImpl.java
+ * <p>Tests basic functions like create, read, and update</p>
+ */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CompensationServiceImplTest {
@@ -37,12 +41,21 @@ public class CompensationServiceImplTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
+    // setup urls
     @Before
     public void setup() {
         compensationUrl = "http://localhost:" + port + "/compensation";
         compensationIDUrl = "http://localhost:" + port + "/compensation/{id}";
     }
 
+    /**
+     * (Reused from EmployeeServiceImplTest)
+     * Test the create, read, and update methods of the CompensationServiceImpl class
+     * This test checks for
+     * - a created compensation
+     * - a read compensation
+     * - an updated compensation
+     */
     @Test
     public void testCreateReadUpdate() {
         Compensation testCompensation = new Compensation();
@@ -80,6 +93,11 @@ public class CompensationServiceImplTest {
         assertCompensationEquivalence(readCompensation, updatedCompensation);
     }
 
+    /**
+     * Compares all attributes of two Compensation objects for equivalence
+     * @param expected the expected Compensation
+     * @param actual the actual Compensation
+     */
     private static void assertCompensationEquivalence(Compensation expected, Compensation actual) {
         assertEquals(expected.getSalary(), actual.getSalary(), 0);
         assertEquals(expected.getCompensationID(), actual.getCompensationID());

@@ -27,27 +27,40 @@ public class CompensationController {
     private CompensationService compensationService;
 
     /**
-     * Creates a compensation
+     * Creates a Compensation
      * @param compensation the Compensation
-     * @return a call to compensationService to create the compensation
+     * @return a ResponseEntity containing the compensation and an OK code or
+     * an error code
      */
     @PostMapping("/compensation")
-    public Compensation create(@RequestBody Compensation compensation) {
+    public ResponseEntity<Compensation> create(@RequestBody Compensation compensation) {
         LOG.debug("Received compensation create request for [{}]", compensation);
+        Compensation compensationSaved = compensationService.create(compensation);
+        if(compensationSaved != null) {
+            return new ResponseEntity<>(compensationSaved, HttpStatus.CREATED);
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
 
-        return compensationService.create(compensation);
     }
 
     /**
      * Reads a Compensation object
      * @param id the Compensation's ID
-     * @return a call to compensationService to read the compensation
+     * @return ResponseEntity containing the read Compensation object with an
+     * OK code or a NOT_FOUND code
      */
     @GetMapping("/compensation/{id}")
-    public Compensation read(@PathVariable String id) {
+    public ResponseEntity<Compensation> read(@PathVariable String id) {
         LOG.debug("Received compensation read request for id [{}]", id);
-
-        return compensationService.read(id);
+        try {
+            Compensation compensation = compensationService.read(id);
+            return new ResponseEntity<>(compensation, HttpStatus.OK);
+        } catch(RuntimeException e) {
+            LOG.error("Compensation not found for id [{}]", id);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
     }
 
     /**
@@ -56,10 +69,15 @@ public class CompensationController {
      * @return a call to compensationService to update the compensation
      */
     @PutMapping("/compensation/{id}")
-    public Compensation update(@PathVariable String id, @RequestBody Compensation compensation) {
+    public ResponseEntity<Compensation> update(@PathVariable String id, @RequestBody Compensation compensation) {
         LOG.debug("Received compensation update request for id [{}] and compensation [{}]", id, compensation);
-
         compensation.setCompensationID(id);
-        return compensationService.update(compensation);
+        Compensation updatedCompensation = compensationService.update(compensation);
+        if(updatedCompensation != null) {
+            return new ResponseEntity<>(updatedCompensation, HttpStatus.OK);
+        }
+        else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
     }
 }

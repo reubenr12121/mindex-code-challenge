@@ -62,7 +62,7 @@ public class EmployeeController {
             Employee employee = employeeService.read(id);
             // count the DirectReports recursively
             int directEmployeeCount = employeeService.countDirectReports(employee);
-            LOG.debug("employee count: [{}]", directEmployeeCount);
+            //LOG.debug("employee count: [{}]", directEmployeeCount);
             //int directEmployeeCount = employee.getDirectReports().size();
             ReportingStructure responseEntity = new ReportingStructure(
             employee.getEmployeeId(),
