@@ -1,5 +1,7 @@
 package com.mindex.challenge.data;
 import java.time.LocalDate;
+import org.springframework.data.annotation.Id;
+
 
 /**
  * Class for representing the compensation details of a particular employee
@@ -11,6 +13,7 @@ public class Compensation {
     // decided to implement surrogate key in case employees have more than one
     // compensation per date
     private String compensationId;
+
     private String employeeId;
     private double salary;
     private LocalDate effectiveDate;

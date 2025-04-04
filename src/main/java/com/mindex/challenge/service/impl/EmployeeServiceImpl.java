@@ -1,6 +1,7 @@
 package com.mindex.challenge.service.impl;
 
 import com.mindex.challenge.dao.EmployeeRepository;
+import com.mindex.challenge.data.Compensation;
 import com.mindex.challenge.data.Employee;
 import com.mindex.challenge.service.EmployeeService;
 import org.slf4j.Logger;
@@ -40,11 +41,17 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employee;
     }
 
+    /**
+     * updates a employee by calling the repository with a new employee
+     * @param employee the new employee
+     * @return the employee
+     */
     @Override
     public Employee update(Employee employee) {
-        LOG.debug("Updating employee [{}]", employee);
-
-        return employeeRepository.save(employee);
+        employeeRepository.deleteByEmployeeId(employee.getEmployeeId());
+        LOG.debug("Updating compensation [{}]", employee);
+        employeeRepository.insert(employee);
+        return employee;
     }
 
 
