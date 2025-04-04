@@ -31,7 +31,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee read(String id) {
         LOG.debug("Reading employee with id [{}]", id);
 
-        Employee employee = employeeRepository.findByEmployeeID(id);
+        Employee employee = employeeRepository.findByEmployeeId(id);
 
         if (employee == null) {
             throw new RuntimeException("Invalid employeeId: " + id);
@@ -58,7 +58,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         int count = employee.getDirectReports().size();
         for(Employee emp : employee.getDirectReports()) {
-            emp = employeeRepository.findByEmployeeID(emp.getEmployeeId());
+            emp = employeeRepository.findByEmployeeId(emp.getEmployeeId());
             LOG.debug("Count direct reports before [{}]", count);
             count += countDirectReports(emp);
         }
