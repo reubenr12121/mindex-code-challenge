@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+/**
+ * Service tier for compensation
+ */
 @Service
 public class CompensationServiceImpl implements CompensationService {
 
@@ -18,7 +21,11 @@ public class CompensationServiceImpl implements CompensationService {
     @Autowired
     private CompensationRepository compensationRepository;
 
-
+    /**
+     * create method calls repository to create insert created compensation
+     * @param compensation the compensation being inserted
+     * @return the compensation
+     */
     @Override
     public Compensation create(Compensation compensation) {
         LOG.debug("Creating compensation [{}]", compensation);
@@ -27,10 +34,15 @@ public class CompensationServiceImpl implements CompensationService {
         return compensation;
     }
 
+    /**
+     * read method calls repository to grab compensation from id
+     * @param id
+     * @return the compensation
+     */
     @Override
     public Compensation read(String id) {
         LOG.debug("Reading compensation with id [{}]", id);
-
+        
         Compensation compensation = compensationRepository.findByCompensationId(id);
 
         if (compensation == null) {
@@ -40,10 +52,16 @@ public class CompensationServiceImpl implements CompensationService {
         return compensation;
     }
 
+    /**
+     * updates a compensation by calling the repository with a new compensation
+     * @param compensation the new compensation
+     * @return the compensation
+     */
     @Override
     public Compensation update(Compensation compensation) {
+        compensationRepository.deleteByCompensationId(compensation.getCompensationId());
         LOG.debug("Updating compensation [{}]", compensation);
-
-        return compensationRepository.save(compensation);
+        compensationRepository.insert(compensation);
+        return compensation;
     }
 }
