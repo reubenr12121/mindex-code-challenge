@@ -1,0 +1,32 @@
+[
+  {
+    "compensationId": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "employeeId": "16a596ae-edd3-4847-99fe-c4518e82c86f",
+    "salary": 120000.00,
+    "effectiveDate": "2025-01-01"
+  },
+  {
+    "compensationId": "b1c2d3e4-f5a6-7890-bcde-fa2345678901",
+    "employeeId": "b7839309-3348-463b-a7e3-5de1c168beb3",
+    "salary": 80000.00,
+    "effectiveDate": "2024-06-15"
+  },
+  {
+    "compensationId": "c1d2e3f4-a5b6-7890-cdef-ab3456789012",
+    "employeeId": "03aa1462-ffa9-4978-901b-7c001562cf6f",
+    "salary": 95000.00,
+    "effectiveDate": "2025-03-01"
+  },
+  {
+    "compensationId": "d1e2f3a4-b5c6-7890-def0-cd4567890123",
+    "employeeId": "62c1084e-6e34-4630-93fd-9153afb65309",
+    "salary": 70000.00,
+    "effectiveDate": "2024-07-01"
+  },
+  {
+    "compensationId": "e1f2a3b4-c5d6-7890-ef01-de5678901234",
+    "employeeId": "c0c2293d-16bd-4603-8e08-638a9d18b22c",
+    "salary": 75000.00,
+    "effectiveDate": "2025-02-15"
+  }
+]
