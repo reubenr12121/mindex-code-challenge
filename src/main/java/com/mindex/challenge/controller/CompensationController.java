@@ -1,7 +1,6 @@
 package com.mindex.challenge.controller;
 
 import com.mindex.challenge.data.Compensation;
-import com.mindex.challenge.data.ReportingStructure;
 import com.mindex.challenge.service.CompensationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -71,7 +70,7 @@ public class CompensationController {
     @PutMapping("/compensation/{id}")
     public ResponseEntity<Compensation> update(@PathVariable String id, @RequestBody Compensation compensation) {
         LOG.debug("Received compensation update request for id [{}] and compensation [{}]", id, compensation);
-        compensation.setCompensationID(id);
+        compensation.setCompensationId(id);
         Compensation updatedCompensation = compensationService.update(compensation);
         if(updatedCompensation != null) {
             return new ResponseEntity<>(updatedCompensation, HttpStatus.OK);

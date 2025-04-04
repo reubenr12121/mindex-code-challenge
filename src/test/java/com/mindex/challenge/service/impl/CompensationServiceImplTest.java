@@ -59,21 +59,21 @@ public class CompensationServiceImplTest {
     @Test
     public void testCreateReadUpdate() {
         Compensation testCompensation = new Compensation();
-        testCompensation.setCompensationID("5678");
-        testCompensation.setEmployeeID("1234");
+        testCompensation.setCompensationId("5678");
+        testCompensation.setEmployeeId("1234");
         testCompensation.setSalary(1000000.00);
         testCompensation.setEffectiveDate(LocalDate.of(2000, 1, 1));
 
         // Create checks
         Compensation createdCompensation = restTemplate.postForEntity(compensationUrl, testCompensation, Compensation.class).getBody();
 
-        assertNotNull(createdCompensation.getCompensationID());
+        assertNotNull(createdCompensation.getCompensationId());
         assertCompensationEquivalence(testCompensation, createdCompensation);
 
 
         // Read checks
-        Compensation readCompensation = restTemplate.getForEntity(compensationIDUrl, Compensation.class, createdCompensation.getCompensationID()).getBody();
-        assertEquals(createdCompensation.getCompensationID(), readCompensation.getCompensationID());
+        Compensation readCompensation = restTemplate.getForEntity(compensationIDUrl, Compensation.class, createdCompensation.getCompensationId()).getBody();
+        assertEquals(createdCompensation.getCompensationId(), readCompensation.getCompensationId());
         assertCompensationEquivalence(createdCompensation, readCompensation);
 
 
@@ -88,7 +88,7 @@ public class CompensationServiceImplTest {
                         HttpMethod.PUT,
                         new HttpEntity<Compensation>(readCompensation, headers),
                         Compensation.class,
-                        readCompensation.getCompensationID()).getBody();
+                        readCompensation.getCompensationId()).getBody();
 
         assertCompensationEquivalence(readCompensation, updatedCompensation);
     }
@@ -100,8 +100,8 @@ public class CompensationServiceImplTest {
      */
     private static void assertCompensationEquivalence(Compensation expected, Compensation actual) {
         assertEquals(expected.getSalary(), actual.getSalary(), 0);
-        assertEquals(expected.getCompensationID(), actual.getCompensationID());
+        assertEquals(expected.getCompensationId(), actual.getCompensationId());
         assertEquals(expected.getEffectiveDate(), actual.getEffectiveDate());
-        assertEquals(expected.getEmployeeID(), actual.getEmployeeID());
+        assertEquals(expected.getEmployeeId(), actual.getEmployeeId());
     }
 }

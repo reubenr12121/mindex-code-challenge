@@ -1,12 +1,8 @@
 package com.mindex.challenge;
 
 import com.mindex.challenge.controller.CompensationController;
-import com.mindex.challenge.controller.CompensationController;
-import com.mindex.challenge.service.impl.CompensationServiceImplTest;
 import com.mindex.challenge.data.Compensation;
-import com.mindex.challenge.data.ReportingStructure;
 import com.mindex.challenge.service.CompensationService;
-import org.apache.coyote.Response;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -17,8 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
@@ -85,8 +79,8 @@ public class CompensationControllerTest {
                 100000,
                 LocalDate.of(2000, 1, 1)
         );
-        when(mockCompensationService.read(compensation.getCompensationID())).thenReturn(compensation);
-        ResponseEntity<Compensation> response = compensationController.read(compensation.getCompensationID());
+        when(mockCompensationService.read(compensation.getCompensationId())).thenReturn(compensation);
+        ResponseEntity<Compensation> response = compensationController.read(compensation.getCompensationId());
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertCompensationEquivalence(compensation, response.getBody());
     }
@@ -104,8 +98,8 @@ public class CompensationControllerTest {
                 100000,
                 LocalDate.of(2000, 1, 1)
         );
-        when(mockCompensationService.read(compensation.getCompensationID())).thenThrow(new RuntimeException());
-        ResponseEntity<Compensation> response = compensationController.read(compensation.getCompensationID());
+        when(mockCompensationService.read(compensation.getCompensationId())).thenThrow(new RuntimeException());
+        ResponseEntity<Compensation> response = compensationController.read(compensation.getCompensationId());
         assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
     }
 
@@ -127,7 +121,7 @@ public class CompensationControllerTest {
         );
         when(mockCompensationService.update(compensation)).thenReturn(compensation);
         ResponseEntity<Compensation> response = compensationController.update(
-                        compensation.getCompensationID(),
+                        compensation.getCompensationId(),
                         compensation
             );
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -150,7 +144,7 @@ public class CompensationControllerTest {
         );
         when(mockCompensationService.update(compensation)).thenReturn(null);
         ResponseEntity<Compensation> response = compensationController.update(
-                compensation.getCompensationID(),
+                compensation.getCompensationId(),
                 compensation
         );
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
@@ -163,8 +157,8 @@ public class CompensationControllerTest {
      */
     private static void assertCompensationEquivalence(Compensation expected, Compensation actual) {
         assertEquals(expected.getSalary(), actual.getSalary(), 0);
-        assertEquals(expected.getCompensationID(), actual.getCompensationID());
+        assertEquals(expected.getCompensationId(), actual.getCompensationId());
         assertEquals(expected.getEffectiveDate(), actual.getEffectiveDate());
-        assertEquals(expected.getEmployeeID(), actual.getEmployeeID());
+        assertEquals(expected.getEmployeeId(), actual.getEmployeeId());
     }
 }

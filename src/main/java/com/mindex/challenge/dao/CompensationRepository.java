@@ -9,5 +9,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  */
 @Repository
 public interface CompensationRepository extends MongoRepository<Compensation, String> {
-    Compensation findByCompensationID(String compensationID);
+    Compensation findByCompensationId(String compensationID);
 }
