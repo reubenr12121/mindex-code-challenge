@@ -20,6 +20,7 @@ public class CompensationTest {
     @Test(expected = IllegalArgumentException.class)
     public void testConstructorNegativeSalary() {
         Compensation compensation = new Compensation(
+                "5678",
                 "1234",
                 -1,
                 LocalDate.of(2000, 1, 1)
@@ -34,6 +35,7 @@ public class CompensationTest {
     @Test(expected = IllegalArgumentException.class)
     public void testSetterNegativeSalary() {
         Compensation compensation = new Compensation(
+                "5678",
                 "1234",
                 100,
                 LocalDate.of(2000, 1, 1)

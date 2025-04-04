@@ -8,20 +8,25 @@ import java.time.LocalDate;
  * amount, the employee it's for, and the date it was issued</p>
  */
 public class Compensation {
+    // decided to implement surrogate key in case employees have more than one
+    // compensation per date
+    private String compensationID;
     private String employeeID;
     private double salary;
     private LocalDate effectiveDate;
 
     /**
      * Constructor for a Compensation object
+     * @param compensationID the ID of the compensation
      * @param employeeID the ID of the employee
      * @param salary the amount paid to the employee
      * @param effectiveDate the date the compensation was issued
      */
-    public Compensation(String employeeID, double salary, LocalDate effectiveDate) {
+    public Compensation(String compensationID, String employeeID, double salary, LocalDate effectiveDate) {
         if(salary < 0) {
             throw new IllegalArgumentException("Salary cannot be negative");
         }
+        this.compensationID = compensationID;
         this.employeeID = employeeID;
         this.salary = salary;
         this.effectiveDate = effectiveDate;
@@ -32,6 +37,22 @@ public class Compensation {
      */
     public Compensation() {
         
+    }
+
+    /**
+     * Gets the Compensation object's compensationID
+     * @return the compensationID of the Compensation object
+     */
+    public String getCompensationID() {
+        return this.compensationID;
+    }
+
+    /**
+     * Sets the ID of the Compensation object
+     *
+     */
+    public void setCompensationID(String compensationID) {
+        this.compensationID = compensationID;
     }
 
     /**
@@ -51,7 +72,7 @@ public class Compensation {
     }
 
     /**
-     * Sets the effective date of the Compensation object
+     * Gets the effective date of the Compensation object
      * @return the effective date of the Compensation object
      */
     public LocalDate getEffectiveDate() {
